@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 // const cookieParser = require("cookie-parser");
 // const TestUser = require("./schema.js")
 
@@ -39,6 +40,11 @@ app.use(session({
     secret: 'andhisnameisjohncena.',
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1:27017/testStore',
+        touchAfter: 60 ,// time period in seconds
+        // serialize:true
+      })
     // cookie: { secure: true,
     //             maxAge:6000}
   }))
